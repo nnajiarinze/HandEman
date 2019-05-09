@@ -147,7 +147,7 @@ handymanSchema.pre('save', async function (next) {
 //     next();
 // })
 
-const Handyman = mongoose.model('handymanSchema',handymanSchema);
+const Handyman = mongoose.model('handyman',handymanSchema);
 
 
 

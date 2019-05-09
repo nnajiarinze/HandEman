@@ -24,4 +24,15 @@ router.post('/handyman', async (req, res) => {
 });
 
 
+
+router.post('/handyman/login', async (req,res) => {
+    try{
+        const handyman = await Handyman.findByCredentials(req.body.username,req.body.password);
+        const token = await handyman.generateAuthToken();
+        res.send({handyman,token});
+    }catch(e){
+         
+        res.status(400).send(e);
+    }
+});
 module.exports = router;
