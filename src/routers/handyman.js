@@ -86,4 +86,23 @@ router.patch('/handyman/me',auth, async (req, res) => {
 
 
 
+router.get('/handyman/:occupation', async (req, res) => {
+
+    const occupation = req.params.occupation;
+   
+     
+    Handyman.find({occupation: occupation.trim()}).then((handymen) => {
+        if (!handymen) {
+            return res.status(404).send();
+        }
+        res.send(handymen);
+
+    }).catch((error) => {
+        res.status(500).send();
+    });
+
+});
+
+
+
 module.exports = router;
