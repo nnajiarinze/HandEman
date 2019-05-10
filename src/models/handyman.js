@@ -36,14 +36,10 @@ const handymanSchema = new mongoose.Schema({
             }
         }
     },  
-    occupationId : {
-        type: Number,
-        default: 1,
-        validate(value){
-            if(value < 0){
-                throw new Error('value must be a positive number');
-            }
-        }
+    occupation : {
+        type: String,
+        required:true,
+        trim: true
     },
     baseRate : {
         type: Number,
