@@ -1,6 +1,6 @@
 const express = require('express');
 const Handyman = require('../models/handyman');
-//const auth = require('../middleware/auth');
+const auth = require('../middleware/auth');
 //const multer = require('multer');
   
 const router = new express.Router(); 
@@ -35,4 +35,23 @@ router.post('/handyman/login', async (req,res) => {
         res.status(400).send(e);
     }
 });
+
+
+
+
+
+router.get('/handyman', auth , async (req, res) => {
+       
+    try {
+     
+     const handymen =  await Handyman.find({}).skip(parseInt(req.query.skip)).limit(parseInt(req.query.limit));
+       console.log(handymen)
+       res.send(handymen);
+    } catch (e) {
+       
+        res.status(500).send();
+    }
+});
+
+
 module.exports = router;
