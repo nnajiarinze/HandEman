@@ -54,4 +54,36 @@ router.get('/handyman', auth , async (req, res) => {
 });
 
 
+router.patch('/handyman/me',auth, async (req, res) => {
+  
+    const updates = Object.keys(req.body);
+    const allowedUpdates = ['available'];
+    const isValidOperation = updates.every((update) => {
+        return allowedUpdates.includes(update);
+    })
+
+    if (!isValidOperation) {
+        return res.status(400).send({ 'error': 'Invalid Operation' })
+    }
+
+    try {
+
+         
+        updates.forEach((update) => {
+            req.handyman[update] = req.body[update];
+        });
+
+        await req.handyman.save();
+        
+        res.send(req.handyman);
+
+    } catch (e) {
+
+        res.status(400).send(e);
+    }
+});
+
+
+
+
 module.exports = router;
